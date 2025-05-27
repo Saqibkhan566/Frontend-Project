@@ -101,7 +101,7 @@ const Sign_up = () => {
                 </div>
             </div>
         </div >
-
+        // {role === 'docter'?'Signup as a doctor':'Signup as a Patient'}
     )
 }
 
