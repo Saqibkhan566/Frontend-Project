@@ -1,25 +1,30 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from './Components/Navbar/Navbar';
+import Notification from './Components/Notification/Notification';
 import Landing_Page from './Components/Landing_Page/Landing_Page';
 import Login from './Components/Login/Login';
 import Sign_up from './Components/Sign_up/Sign_up';
 // import InstantConsultation from './Components/InstantConsultationBooking/InstantConsultation';
 import BookingConsultation from './Components/BookingConsultation';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Review from './Components/ReviewForm/ReviewForm';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Landing_Page />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/sign_up" element={<Sign_up />} />
-          {/* <Route path="/instant-consultation" element={<InstantConsultation />} /> */}
-          <Route path="/booking-consultation" element={<BookingConsultation />} />
-        </Routes>
+        <Notification >
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Landing_Page />} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="/sign_up" element={<Sign_up />} />
+            <Route path='/reviews' element={<Review />} />
+            {/* <Route path="/instant-consultation" element={<InstantConsultation />} /> */}
+            <Route path="/booking-consultation" element={<BookingConsultation />} />
+          </Routes>
+        </Notification>
       </BrowserRouter>
     </div>
   );

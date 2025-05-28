@@ -17,15 +17,28 @@ const DoctorCard = ({ name, speciality, experience, ratings, profilePic }) => {
     const handleCancel = (appointmentId) => {
         const updatedAppointments = appointments.filter((appointment) => appointment.id !== appointmentId);
         setAppointments(updatedAppointments);
+        localStorage.setItem("appointmentData", JSON.stringify(updatedAppointments)); // ✅ Remove from localStorage
     };
 
     const handleFormSubmit = (appointmentData) => {
         const newAppointment = {
             id: uuidv4(),
+            doctorName: name, // ✅ Ensure doctor name is saved
+            doctorSpeciality: speciality,
+            appointmentDate: appointmentData.appointmentDate,  // ✅ Ensure Date is stored
+            appointmentTime: appointmentData.appointmentTime,  // ✅ Ensure Time is stored
             ...appointmentData,
+
         };
         const updatedAppointments = [...appointments, newAppointment];
         setAppointments(updatedAppointments);
+        localStorage.setItem("doctorData", JSON.stringify({
+            name: name,  // ✅ Fix storing doctor data
+            speciality: speciality
+        }));
+
+        localStorage.setItem("appointmentData", JSON.stringify(updatedAppointments)); // ✅ Store appointment data in localStorage
+        localStorage.setItem("appointmentData", JSON.stringify(newAppointment)); // ✅ Save a single appointment (not an array)
         setShowModal(false);
     };
 
@@ -33,7 +46,7 @@ const DoctorCard = ({ name, speciality, experience, ratings, profilePic }) => {
         <div className="doctor-card-container">
             <div className="doctor-card-details-container">
                 <div className="doctor-card-profile-image-container">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16"> <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" /> </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16"> <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" /> </svg>
                 </div>
                 <div className="doctor-card-details">
                     <div className="doctor-card-detail-name">{name}</div>
@@ -72,7 +85,7 @@ const DoctorCard = ({ name, speciality, experience, ratings, profilePic }) => {
                         <div className="doctorbg" style={{ height: '100vh', overflow: 'scroll' }}>
                             <div>
                                 <div className="doctor-card-profile-image-container">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16"> <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" /> </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" className="bi bi-person-fill" viewBox="0 0 16 16"> <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" /> </svg>
                                 </div>
                                 <div className="doctor-card-details">
                                     <div className="doctor-card-detail-name">{name}</div>
