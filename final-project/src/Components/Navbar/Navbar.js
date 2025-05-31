@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ProfileCard from "../ProfileCard/ProfileCard";
 import { Link } from "react-router-dom";
 
 import "./Navbar.css";
@@ -7,7 +8,7 @@ import "./Navbar.css";
 
 const Navbar = () => {
     const [click, setClick] = useState(false);
-
+    const [userDetails, setUserDetails] = useState({});
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -32,16 +33,22 @@ const Navbar = () => {
             }
         }
         setEmail('');
+        setUserDetails({});
         window.location.reload();
     }
     const handleDropdown = () => {
         setShowDropdown(!showDropdown);
     }
     useEffect(() => {
+        // const storedName = sessionStorage.getItem("name");
         const storedemail = sessionStorage.getItem("email");
 
         if (storedemail) {
             setIsLoggedIn(true);
+            setUserDetails({
+                // name: storedName,
+                email: storedemail
+            });
             setUsername(storedemail);
         }
     }, []);
@@ -70,9 +77,18 @@ const Navbar = () => {
                 </li>
                 {isLoggedIn ? (
                     <>
-                        <li className="link">
-                            <span>Welcome, {username}!</span>
+                        <li className="link menu">
+                            <h6 className="welcome-text" onClick={handleDropdown}>
+                                Welcome, {userDetails.email?.split('@')[0]}
+                            </h6>
+                            {showDropdown && (
+                                <div className="dropdown-content item">
+                                    <Link to="/profile">Your Profile</Link>
+                                    <Link to="/reports">Your Reports</Link>
+                                </div>
+                            )}
                         </li>
+
 
                         <li className="link">
                             <button className="btn2" onClick={handleLogout}>
@@ -89,7 +105,7 @@ const Navbar = () => {
                             </Link>
                         </li>
                         <li className="link">
-                            <Link to="/login">
+                            <Link to="/Login">
                                 <button className="btn1">Login</button>
                             </Link>
                         </li>

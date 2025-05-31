@@ -9,6 +9,8 @@ import Sign_up from './Components/Sign_up/Sign_up';
 import BookingConsultation from './Components/BookingConsultation';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Review from './Components/ReviewForm/ReviewForm';
+import ProfileCard from './Components/ProfileCard/ProfileCard';
+import ReportsLayout from './Components/ReportsLayout/ReportsLayout';
 
 function App() {
   return (
@@ -16,11 +18,14 @@ function App() {
       <BrowserRouter>
         <Notification >
           <Navbar />
+          {/* <ProfileCard /> */}
           <Routes>
             <Route path="/" element={<Landing_Page />} />
             <Route path="/Login" element={<Login />} />
             <Route path="/sign_up" element={<Sign_up />} />
             <Route path='/reviews' element={<Review />} />
+            <Route path='/profile' element={<ProfileCard />} />
+            <Route path='/reports' element={<ReportsLayout />} />
             {/* <Route path="/instant-consultation" element={<InstantConsultation />} /> */}
             <Route path="/booking-consultation" element={<BookingConsultation />} />
           </Routes>

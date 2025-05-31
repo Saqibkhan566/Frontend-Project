@@ -18,12 +18,11 @@ nav {
 }
 
 /* Styling for the dropdown menu */
-.dropdown-menu {
+.dropdown-content {
     position: absolute;
-    top: 100%;
-    left: 0;
     z-index: 1;
-    display: none;
+    display: flex;
+    margin-top: 0.25rem;
     min-width: 120px;
     padding: 8px 0;
     background-color: #fff;
@@ -33,34 +32,40 @@ nav {
 
 /* Styling for the user welcome message */
 .welcome-user {
-    position: relative;
+    position: block;
     cursor: pointer;
 }
 
 /* Display dropdown menu on hover */
-.welcome-user:hover .dropdown-menu {
+.welcome-user:hover .dropdown-content {
     display: block;
 }
 
 /* Styling for the items in the dropdown menu */
-.dropdown-menu li {
+.dropdown-content a {
     display: block;
     width: 150px;
     padding:5px;
 }
 
 /* Styling for links in the dropdown menu */
-.dropdown-menu li a {
+.dropdown-content a {
     color: #333;
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 /* Hover effect for links in the dropdown menu */
-.dropdown-menu li a:hover {
+.dropdown-content a:hover {
     color: #2190ff;
 }
-
+.item{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
 /* Styling for the logo in the navbar */
 .nav__logo {
     font-size: 2rem;

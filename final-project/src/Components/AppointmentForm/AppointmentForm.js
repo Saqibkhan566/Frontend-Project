@@ -4,14 +4,14 @@ import React, { useState } from 'react'
 const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
     const [name, setName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [selectedSlot, setSelectedSlot] = useState(undefined);
+    const [selectedSlot, setSelectedSlot] = useState('');
     const [appointmentDate, setAppointmentDate] = useState('');
     const [appointmentTime, setAppointmentTime] = useState('');
     // const [selectedSlot, setSelectedSlot] = useState('');
 
-    const handleSlotSelection = (slot) => {
-        setSelectedSlot(slot);
-    };
+    // const handleSlotSelection = (slot) => {
+    //     setSelectedSlot(slot);
+    // };
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
@@ -24,6 +24,7 @@ const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
         setPhoneNumber('');
         setAppointmentDate('');
         setAppointmentTime('');
+        setSelectedSlot('');
     };
 
     return (
@@ -47,8 +48,8 @@ const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
             </div>
             <div className="form-group">
                 <label htmlFor="selectedSlot">Select Time Slot:</label>
-                <select id="selectedSlot" value={selectedSlot} onChange={(e) => setSelectedSlot(e.target.value)} required>
-                    <option value="" disabled>Select a time slot</option>
+                <select id="selectedSlot" onChange={(e) => setSelectedSlot(e.target.value)} required>
+                    <option value="" >Select a time slot</option>
                     <option value="Morning (9AM - 12PM)">Morning (9AM - 12PM)</option>
                     <option value="Afternoon (1PM - 4PM)">Afternoon (1PM - 4PM)</option>
                     <option value="Evening (5PM - 8PM)">Evening (5PM - 8PM)</option>

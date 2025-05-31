@@ -20,27 +20,45 @@ const DoctorCard = ({ name, speciality, experience, ratings, profilePic }) => {
         localStorage.setItem("appointmentData", JSON.stringify(updatedAppointments)); // ✅ Remove from localStorage
     };
 
+
+
     const handleFormSubmit = (appointmentData) => {
         const newAppointment = {
             id: uuidv4(),
-            doctorName: name, // ✅ Ensure doctor name is saved
+            doctorName: name,
             doctorSpeciality: speciality,
-            appointmentDate: appointmentData.appointmentDate,  // ✅ Ensure Date is stored
-            appointmentTime: appointmentData.appointmentTime,  // ✅ Ensure Time is stored
+            appointmentDate: appointmentData.appointmentDate,
+            appointmentTime: appointmentData.appointmentTime,
+            appointmentTimeSlot: appointmentData.selectedSlot,
             ...appointmentData,
-
         };
-        const updatedAppointments = [...appointments, newAppointment];
-        setAppointments(updatedAppointments);
-        localStorage.setItem("doctorData", JSON.stringify({
-            name: name,  // ✅ Fix storing doctor data
-            speciality: speciality
-        }));
 
-        localStorage.setItem("appointmentData", JSON.stringify(updatedAppointments)); // ✅ Store appointment data in localStorage
-        localStorage.setItem("appointmentData", JSON.stringify(newAppointment)); // ✅ Save a single appointment (not an array)
+        // ✅ Ensure existingAppointments is an array
+        let existingAppointments = JSON.parse(localStorage.getItem("appointmentData")) || [];
+
+        if (!Array.isArray(existingAppointments)) {
+            existingAppointments = [];  // ✅ Reset to empty array if it's invalid
+        }
+
+        const updatedAppointments = [...existingAppointments, newAppointment];
+
+        setAppointments(updatedAppointments);
+        localStorage.setItem("doctorData", JSON.stringify({ name, speciality }));
+        localStorage.setItem("appointmentData", JSON.stringify(updatedAppointments));  // ✅ Store all appointments properly
+
+        window.dispatchEvent(new Event("storage"));
+        window.dispatchEvent(new CustomEvent("appointmentBooked", { detail: JSON.parse(localStorage.getItem("appointmentData")) }));
         setShowModal(false);
     };
+
+
+    useEffect(() => {
+        const storedAppointments = JSON.parse(localStorage.getItem(`doctorData_${name}`)) || [];
+
+        if (Array.isArray(storedAppointments) && storedAppointments.length > 0) {
+            setAppointments(storedAppointments);  // ✅ Restore booked appointment state
+        }
+    }, [name]);
 
     return (
         <div className="doctor-card-container">
@@ -70,7 +88,7 @@ const DoctorCard = ({ name, speciality, experience, ratings, profilePic }) => {
                     trigger={
                         <button className={`book-appointment-btn ${appointments.length > 0 ? 'cancel-appointment' : ''}`}>
                             {appointments.length > 0 ? (
-                                <div>Cancel Appointment</div>
+                                <div onClick={handleCancel}>Cancel Appointment</div>
                             ) : (
                                 <div>Book Appointment</div>
                             )}
@@ -98,13 +116,18 @@ const DoctorCard = ({ name, speciality, experience, ratings, profilePic }) => {
                             {appointments.length > 0 ? (
                                 <>
                                     <h3 style={{ textAlign: 'center' }}>Appointment Booked!</h3>
-                                    {appointments.map((appointment) => (
-                                        <div className="bookedInfo" key={appointment.id}>
-                                            <p>Name: {appointment.name}</p>
-                                            <p>Phone Number: {appointment.phoneNumber}</p>
-                                            <button onClick={() => handleCancel(appointment.id)}>Cancel Appointment</button>
-                                        </div>
-                                    ))}
+                                    {appointments
+                                        .filter((appointment) => appointment.doctorName === name)  // ✅ Only show appointments for this doctor
+                                        .map((appointment) => (
+                                            <div className="bookedInfo" key={appointment.id}>
+                                                <p>Name: {appointment.name}</p>
+                                                <p>Phone Number: {appointment.phoneNumber}</p>
+                                                <p>Appointment Time: {appointment.appointmentTime}</p>
+                                                <p>Appointment Date: {appointment.appointmentDate}</p>
+                                                <p>Time Slot: {appointment.selectedSlot}</p>
+                                                <button onClick={() => handleCancel(appointment.id)}>Cancel Appointment</button>
+                                            </div>
+                                        ))}
                                 </>
                             ) : (
                                 <AppointmentForm doctorName={name} doctorSpeciality={speciality} onSubmit={handleFormSubmit} />

@@ -1,0 +1,85 @@
+.reports-container {
+    max-width: 70%;
+    margin-top: 7rem;
+    padding: 1rem;
+    background: #f9f9f9;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.reports-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 0.25rem;
+    text-align: center;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+.view-btn, .download-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: o.15rem 0.15rem;
+    cursor: pointer;
+    border-radius: 0.25rem;
+}
+
+.download-btn {
+    background-color: #007bff;
+}
+
+.view-btn:hover {
+    background-color: #218838;
+}
+
+.download-btn:hover {
+    background-color: #0056b3;
+}
+
+.selected-report {
+    margin-top: 1.25rem;  /* ✅ Converted from 20px */
+    padding: 1.25rem;  /* ✅ Converted from 20px */
+    background: #b7dafc;
+    border-radius: 0.625rem;  /* ✅ Converted from 10px */
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+    max-width: 37.5rem;  /* ✅ Converted from 600px */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.selected-report h3 {
+    text-align: center;
+    font-size: 1.375rem;  /* ✅ Converted from 22px */
+    color: #333;
+    margin-bottom: 0.9375rem;  /* ✅ Converted from 15px */
+}
+
+.selected-report p {
+    font-size: 1rem;  /* ✅ Converted from 16px */
+    line-height: 1.5;
+    color: #555;
+    border-bottom: 0.0625rem solid #ddd;  /* ✅ Converted from 1px */
+    padding-bottom: 0.5rem;  /* ✅ Converted from 8px */
+    margin-bottom: 0.5rem;  /* ✅ Converted from 8px */
+}
+
+.selected-report p:last-child {
+    border-bottom: none;
+}
+
